@@ -96,7 +96,8 @@ class HoneyPotSSHUserAuthServer(userauth.SSHUserAuthServer):
         """
         password = getNS(packet[1:])[0]
         srcIp = self.transport.transport.getPeer().host  # type: ignore
-        c = credentials.UsernamePasswordIP(self.user, password, srcIp)
+        c = credentials.UsernamePasswordIP(self.user,"", srcIp)
+        #return self.portal.login(c, srcIp, IConchUser).addErrback(self._ebPassword)
         return self.portal.login(c, srcIp, IConchUser).addErrback(self._ebPassword)
 
     def auth_keyboard_interactive(self, packet: bytes) -> Any:
