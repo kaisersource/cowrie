@@ -97,7 +97,6 @@ class HoneyPotSSHUserAuthServer(userauth.SSHUserAuthServer):
         password = getNS(packet[1:])[0]
         srcIp = self.transport.transport.getPeer().host  # type: ignore
         c = credentials.UsernamePasswordIP(self.user, password, srcIp)
-        #return self.portal.login(c, srcIp, IConchUser).addErrback(self._ebPassword)
         return self.portal.login(c, srcIp, IConchUser).addErrback(self._ebPassword)
 
     def auth_keyboard_interactive(self, packet: bytes) -> Any:
@@ -105,7 +104,6 @@ class HoneyPotSSHUserAuthServer(userauth.SSHUserAuthServer):
         Keyboard interactive authentication.  No payload.  We create a
         PluggableAuthenticationModules credential and authenticate with our
         portal.
-
         Overridden to pass src_ip to
           credentials.PluggableAuthenticationModulesIP
         """
@@ -126,7 +124,6 @@ class HoneyPotSSHUserAuthServer(userauth.SSHUserAuthServer):
         Convert a list of PAM authentication questions into a
         MSG_USERAUTH_INFO_REQUEST.  Returns a Deferred that will be called
         back when the user has responses to the questions.
-
         @param items: a list of 2-tuples (message, kind).  We only care about
             kinds 1 (password) and 2 (text).
         @type items: C{list}
