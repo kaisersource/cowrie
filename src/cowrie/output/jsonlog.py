@@ -61,7 +61,7 @@ class Output(cowrie.core.output.Output):
             logentry["password"] = ""
         for i in list(logentry.keys()):      
             # Remove twisted 15 legacy keys
-            #if i.startswith("log_") or i == "time" or i == "system" or i == "password":
+            if i.startswith("log_") or i == "time" or i == "system":
                 del logentry[i]
         try:
             json.dump(logentry, self.outfile, separators=(",", ":"))
