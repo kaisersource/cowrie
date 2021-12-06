@@ -58,8 +58,11 @@ class Output(cowrie.core.output.Output):
     def write(self, logentry):
         if self.epoch_timestamp:
             logentry["epoch"] = int(logentry["time"] * 1000000 / 1000)
-            logentry["password"] = ""
-        for i in list(logentry.keys()):      
+            #logentry["password"] = ""
+        
+        for i in list(logentry.keys()):  
+            if i == "password":
+                i.password = ""  
             # Remove twisted 15 legacy keys
             if i.startswith("log_") or i == "time" or i == "system":
                 del logentry[i]
